@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+  plex:
+    build: ./compose/plex
+    volumes:
+      - "${PLEX_CONFIG_DIR}:/config"
+      - "${PLEX_MEDIA_DIR}:/data"
+    ports:
+      - "32400:32400"
+    environment:
+      - RUN_AS_ROOT=true
+      - CHANGE_DIR_RIGHTS=false
+      - CHANGE_CONFIG_DIR_OWNERSHIP=true
+      - HOME=/config
+      - PLEX_DISABLE_SECURITY=1
+
+  couch_potato:
+    build: ./compose/couch_potato
+    volumes:
+      - /etc/docker/plex:/config
+    depends_on:
+      - plex
+    links:
+      - plex
+    ports:
+      - "5050:5050"
+
+  sonarr:
+    build: ./compose/sonarr
+    ports:
+      - "8989:8989"
