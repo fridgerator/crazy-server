@@ -1,4 +1,4 @@
-# Crazy Server
+![crazy server](https://i.snag.gy/yBzf0C.jpg)
 
 Really crazy server
 

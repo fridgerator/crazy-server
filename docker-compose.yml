@@ -30,3 +30,12 @@ services:
     build: ./compose/sonarr
     ports:
       - "8989:8989"
+  
+  jackett:
+    build: ./compose/jackett
+    depends_on:
+      - sonarr
+    links:
+      - sonarr
+    ports:
+      - "9117:9117"
